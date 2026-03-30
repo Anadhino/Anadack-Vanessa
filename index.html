@@ -1077,21 +1077,33 @@
       return '';
     }
 
-    async function sendRSVP(payload) {
-      const response = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      });
+async function sendRSVP(payload) {
+  const response = await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  });
 
-      const result = await response.json().catch(() => ({}));
+  const rawText = await response.text();
+  console.log('Réponse brute Apps Script:', rawText);
 
-      if (!response.ok || result.result !== 'success') {
-        throw new Error(result.message || 'Erreur lors de l’envoi');
-      }
+  let result = {};
+  try {
+    result = JSON.parse(rawText);
+  } catch (e) {
+    throw new Error('Réponse non JSON : ' + rawText);
+  }
 
-      return result;
-    }
+  if (!response.ok) {
+    throw new Error('HTTP ' + response.status + ' : ' + (result.message || rawText));
+  }
+
+  if (result.result !== 'success') {
+    throw new Error(result.message || 'Erreur inconnue côté Apps Script');
+  }
+
+  return result;
+}
 
     async function playMusic() {
       try {
@@ -1177,7 +1189,7 @@
         form.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } catch (error) {
         console.error(error);
-        setStatus('error', 'Impossible d’envoyer votre réponse pour le moment. Merci de réessayer dans quelques instants.');
+        setStatus('error', 'Erreur : ' + error.message);
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Envoyer ma réponse';
