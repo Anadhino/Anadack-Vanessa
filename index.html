@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save the Date Production — Anadack & Vanessa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #12060c;
+      --bg-soft: #241019;
+      --card: rgba(18, 7, 12, 0.22);
+      --card-soft: rgba(255,255,255,0.035);
+      --text: #fbf4f6;
+      --muted: #e7d4da;
+      --accent: #7b1532;
+      --accent-2: #a5214d;
+      --accent-3: #d56b90;
+      --gold: #f2d8a6;
+      --line: rgba(255,255,255,0.11);
+      --shadow: 0 24px 80px rgba(0,0,0,0.42);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(17, 4, 10, 0.34), rgba(17, 4, 10, 0.46)),
+        url('./salle.png') center center / cover fixed no-repeat;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle at 15% 15%, rgba(240,213,162,0.18), transparent 18%),
+        radial-gradient(circle at 82% 10%, rgba(213,107,144,0.16), transparent 18%),
+        radial-gradient(circle at 80% 82%, rgba(123,21,50,0.28), transparent 22%);
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      background: linear-gradient(180deg, rgba(11, 3, 7, 0.02), rgba(11, 3, 7, 0.16));
+    }
+
+    .snow,
+    .sparkles,
+    .sparkles::before,
+    .sparkles::after {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      content: "";
+    }
+
+    .snow {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.85) 0 2px, transparent 2.5px),
+        radial-gradient(circle, rgba(242,216,166,0.75) 0 1.5px, transparent 2px),
+        radial-gradient(circle, rgba(255,255,255,0.55) 0 1px, transparent 1.8px);
+      background-size: 220px 220px, 320px 320px, 180px 180px;
+      background-position: 0 0, 90px 120px, 40px 80px;
+      opacity: .45;
+      animation: snowfall 26s linear infinite;
+    }
+
+    .sparkles,
+    .sparkles::before,
+    .sparkles::after {
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(242,216,166,0.14) 0 8px, transparent 9px),
+        radial-gradient(circle at 80% 30%, rgba(213,107,144,0.12) 0 7px, transparent 8px),
+        radial-gradient(circle at 30% 78%, rgba(255,255,255,0.10) 0 6px, transparent 7px),
+        radial-gradient(circle at 68% 84%, rgba(242,216,166,0.10) 0 5px, transparent 6px);
+      animation: floatGlow 20s ease-in-out infinite;
+      opacity: .45;
+    }
+
+    .sparkles::before { opacity: .35; animation-duration: 30s; }
+    .sparkles::after { opacity: .22; animation-duration: 40s; }
+
+    @keyframes snowfall {
+      from { transform: translateY(-4%); }
+      to { transform: translateY(4%); }
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(10px) scale(1.02); }
+    }
+
+    .shell {
+      width: min(1380px, calc(100% - 42px));
+      margin: 24px auto 54px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero,
+    .rsvp,
+    .info,
+    .gallery-panel,
+    .production {
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: linear-gradient(135deg, rgba(255,255,255,0.028), rgba(255,255,255,0.012));
+    }
+
+    .hero {
+      overflow: hidden;
+      border-radius: 38px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
+        linear-gradient(145deg, rgba(89,11,37,0.30), rgba(15,5,10,0.38));
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(380px, 0.96fr);
+      min-height: 780px;
+    }
+
+    .left,
+    .right {
+      padding: 56px;
+      position: relative;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .badge,
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+    }
+
+    .badge::before,
+    .mini-badge::before {
+      content: "✦";
+      color: var(--gold);
+    }
+
+    h1 {
+      margin: 20px 0 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 8vw, 6.8rem);
+      line-height: .92;
+      font-weight: 600;
+      letter-spacing: -.04em;
+      text-shadow: 0 12px 40px rgba(0,0,0,0.22);
+    }
+
+    .production-line {
+      margin-top: 16px;
+      font-size: .95rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .92;
+    }
+
+    .names {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      color: #fff7f9;
+    }
+
+    .amp { color: var(--gold); }
+
+    .intro {
+      max-width: 62ch;
+      margin-top: 24px;
+      color: var(--muted);
+      line-height: 1.92;
+      font-size: 1.04rem;
+    }
+
+    .callouts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .callout,
+    .glass,
+    .step,
+    .gallery-card,
+    .music-card,
+    .production-card {
+      background: var(--card-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .gallery-card {
+      overflow: hidden;
+      border-radius: 28px;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 340px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      background: rgba(255,255,255,0.03);
+      padding: 10px;
+    }
+
+    .visual-card {
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: rgba(12, 4, 8, 0.18);
+    }
+
+    .music-card-passive .music-state {
+      margin-top: 10px;
+    }
+
+
+    .callout {
+      border-radius: 22px;
+      padding: 18px;
+      min-height: 104px;
+    }
+
+    .callout small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-3);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .68rem;
+    }
+
+    .callout strong {
+      display: block;
+      color: #fff7f9;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .message-box {
+      margin-top: 26px;
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .message-box strong { color: #fff; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      padding: 15px 22px;
+      min-height: 48px;
+      border-radius: 999px;
+      font: inherit;
+      font-weight: 600;
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease, background .18s ease;
+      max-width: 100%;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:disabled { cursor: not-allowed; opacity: .7; }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      box-shadow: 0 10px 24px rgba(165,33,77,0.35);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .btn-gold {
+      color: #2a1017;
+      background: linear-gradient(135deg, #f7e2b9, #f0d5a2);
+      box-shadow: 0 10px 24px rgba(240,213,162,0.18);
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      border-left: 1px solid rgba(255,255,255,0.06);
+      background:
+        radial-gradient(circle at top right, rgba(240,213,162,0.09), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    }
+
+    .visual-card {
+      position: relative;
+      min-height: 450px;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+      background:
+        linear-gradient(to top, rgba(18,5,10,0.38), rgba(18,5,10,0.08)),
+        url('./salle.png') center center / contain no-repeat;
+      background-color: rgba(12, 4, 8, 0.16);
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 30%),
+        radial-gradient(circle at 20% 24%, rgba(240,213,162,0.16), transparent 26%),
+        radial-gradient(circle at 80% 80%, rgba(213,107,144,0.18), transparent 24%);
+    }
+
+    .date-chip {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      min-width: 220px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(17,6,10,0.74);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(14px);
+    }
+
+    .date-chip small {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent-3);
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: .64rem;
+    }
+
+    .date-chip strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .date-chip span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .info-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 16px;
+    }
+
+    .glass,
+    .music-card,
+    .production-card {
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .glass h3,
+    .music-card h3,
+    .production-card h3,
+    .rsvp h2,
+    .info h2,
+    .gallery-panel h2,
+    .production h2 {
+      margin: 0 0 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff8fa;
+    }
+
+    .glass p,
+    .glass li,
+    .rsvp p,
+    .info p,
+    .info li,
+    .music-card p,
+    .gallery-card p,
+    .production-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: .98rem;
+    }
+
+    .glass ul,
+    .info ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .music-card {
+      display: grid;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .music-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .music-state {
+      font-size: .9rem;
+      color: var(--gold);
+      min-height: 22px;
+    }
+
+    .qr-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+
+    .qr-box img {
+      width: 112px;
+      height: 112px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 8px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+
+    .qr-box span {
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.5;
+    }
+
+    .gallery-panel,
+    .production {
+      margin-top: 28px;
+      border-radius: 30px;
+      padding: 36px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 18px;
+    }
+
+    .gallery-card {
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.24);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .gallery-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      padding: 18px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .gallery-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8,3,6,0.03), rgba(8,3,6,0.10) 42%, rgba(8,3,6,0.62));
+    }
+
+    .gallery-copy {
+      position: relative;
+      z-index: 1;
+      padding: 24px;
+    }
+
+    .gallery-copy h3 {
+      margin: 0 0 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 28px;
+      margin-top: 28px;
+      align-items: start;
+    }
+
+    .rsvp,
+    .info {
+      border-radius: 30px;
+      padding: 36px;
+    }
+
+    .production-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .production-card {
+      min-height: 190px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+      position: relative;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: #f7e6eb;
+      font-size: .92rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      padding: 14px 15px;
+      font: inherit;
+      outline: none;
+      appearance: none;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+
+    option { color: #2d0f1a; }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(213,107,144,0.62);
+      box-shadow: 0 0 0 4px rgba(213,107,144,0.12);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .status {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      line-height: 1.7;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.7;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .step {
+      border-left: 2px solid rgba(213,107,144,0.42);
+      border-radius: 0 18px 18px 0;
+      padding: 16px 16px 16px 20px;
+    }
+
+    .step strong {
+      display: block;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: .95rem;
+      padding-bottom: 8px;
+    }
+
+    .heart {
+      color: var(--accent-3);
+      display: inline-block;
+      animation: pulse 2.4s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .section-grid,
+      .production-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field-grid,
+      .info-panel,
+      .callouts,
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .right {
+        border-left: 0;
+        border-top: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .hero-grid { min-height: auto; }
+      .shell { width: min(100%, calc(100% - 24px)); }
+    }
+
+    @media (max-width: 780px) {
+      .field-grid,
+      .info-panel,
+      .callouts,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .left,
+      .right,
+      .rsvp,
+      .info,
+      .gallery-panel,
+      .production {
+        padding: 24px;
+      }
+
+      .shell {
+        width: calc(100% - 16px);
+        margin: 16px auto 32px;
+      }
+
+      .visual-card,
+      .gallery-card {
+        min-height: 340px;
+        background-position: center top;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      .rsvp,
+      .info,
+      .gallery-panel,
+      .production {
+        border-radius: 22px;
+      }
+
+      .left,
+      .right,
+      .rsvp,
+      .info,
+      .gallery-panel,
+      .production {
+        padding: 18px;
+      }
+
+      h1 { font-size: clamp(2.8rem, 13vw, 4.2rem); }
+      .names { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+      .badge,
+      .btn,
+      .callout,
+      .glass,
+      .music-card,
+      .production-card { width: 100%; }
+      .actions,
+      .music-actions { flex-direction: column; }
+      .visual-card { min-height: 280px; }
+      .date-chip { position: static; margin: 14px; width: auto; }
+      input, select, textarea, button, .btn { min-height: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="snow"></div>
+  <div class="sparkles"></div>
+
+  <audio id="weddingAudio" loop preload="auto" autoplay muted playsinline>
+    <source src="./music.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="left">
+          <div class="badge">Save the Date • Mariage 2026</div>
+          <div class="production-line">Save the Date Production</div>
+          <h1>Réservez<br>cette date</h1>
+          <div class="names">
+            <span>Anadack</span>
+            <span class="amp">&amp;</span>
+            <span>Vanessa</span>
+          </div>
+
+          <p class="intro">
+            Nous nous unirons le <strong>samedi 29 août 2026</strong>.
+            Merci de réserver cette date et de confirmer votre présence.
+          </p>
+
+          <div class="callouts">
+            <div class="callout">
+              <small>Date</small>
+              <strong>Samedi 29 août 2026</strong>
+            </div>
+            <div class="callout">
+              <small>Lieu</small>
+              <strong>Muirancourt</strong>
+            </div>
+            <div class="callout">
+              <small>Thème</small>
+              <strong>Bordeaux, doré &amp; romantique</strong>
+            </div>
+          </div>
+
+          <div class="message-box">
+            <strong>Votre présence rendra cette journée inoubliable.</strong>
+            Merci de compléter le formulaire ci-dessous.
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#rsvp">Confirmer ma présence</a>
+            <a class="btn btn-secondary" href="#souvenirs">Voir nos souvenirs</a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="visual-card" aria-label="Photo de la salle de mariage en fond principal">
+            <div class="date-chip">
+              <small>Save the date</small>
+              <strong>29.08.26</strong>
+              <span>Muirancourt • Anadack &amp; Vanessa</span>
+            </div>
+          </div>
+
+          <div class="info-panel" id="infos">
+            <div class="glass">
+              <h3>Informations</h3>
+              <ul>
+                <li>Confirmez votre présence.</li>
+                <li>Indiquez le nombre de personnes.</li>
+                <li>Ajoutez les informations sur les enfants si besoin.</li>
+              </ul>
+            </div>
+
+            <div class="music-card music-card-passive">
+              <h3>Ambiance musicale</h3>
+              <p>Lecture automatique en fond.</p>
+              <div class="music-state" id="musicState">Initialisation…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-panel" id="souvenirs">
+      <div class="mini-badge">Nos photos</div>
+      <h2>Moments à deux</h2>
+
+      <div class="gallery-grid">
+        <article class="gallery-card">
+          <img src="./photo1.png" alt="Anadack et Vanessa en portrait élégant" />
+          <div class="gallery-copy">
+            <h3>Élégance &amp; tendresse</h3>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <img src="./photo2.png" alt="Anadack et Vanessa en voiture, portrait lumineux" />
+          <div class="gallery-copy">
+            <h3>Lumière &amp; amour</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-grid" id="rsvp">
+      <section class="rsvp">
+        <h2>Confirmation de présence</h2>
+        <p>Merci de confirmer votre présence.</p>
+
+        <form id="rsvpForm" novalidate>
+          <div class="field-grid">
+            <label>
+              Prénom
+              <input type="text" name="firstName" placeholder="Ex. Marie" required />
+            </label>
+            <label>
+              Nom
+              <input type="text" name="lastName" placeholder="Ex. Dupont" required />
+            </label>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              Téléphone
+              <input type="tel" name="phone" placeholder="Ex. 06 12 34 56 78" inputmode="tel" autocomplete="tel" required />
+            </label>
+            <label>
+              Adresse e-mail
+              <input type="email" name="email" placeholder="Ex. marie@email.com" autocomplete="email" required />
+            </label>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              Présence
+              <select name="attendance" required>
+                <option value="">Sélectionner</option>
+                <option>Oui, avec grand plaisir</option>
+                <option>Oui, sous réserve</option>
+                <option>Non, avec tous nos regrets</option>
+              </select>
+            </label>
+            <label>
+              Nombre total de personnes
+              <select name="count" required>
+                <option value="">Sélectionner</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5+</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              Accompagnants
+              <input type="text" name="companions" placeholder="Ex. Jean Dupont, Léa Martin" />
+            </label>
+            <label>
+              Venez-vous avec des enfants ?
+              <select name="hasChildren" id="hasChildren">
+                <option value="">Sélectionner</option>
+                <option value="non">Non</option>
+                <option value="oui">Oui</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-grid" id="childrenFields" style="display:none;">
+            <label>
+              Prénom(s) des enfants
+              <input type="text" name="childrenFirstNames" placeholder="Ex. Emma, Noah" />
+            </label>
+            <label>
+              Nom(s) des enfants
+              <input type="text" name="childrenSurnames" placeholder="Ex. Dupont, Dupont" />
+            </label>
+          </div>
+
+          <div class="field-grid" id="childrenAgeFields" style="display:none;">
+            <label>
+              Âge(s) des enfants
+              <input type="text" name="childrenAges" placeholder="Ex. 3 ans, 7 ans" />
+            </label>
+            <label>
+              Informations complémentaires enfants
+              <input type="text" name="childrenNotes" placeholder="Ex. chaise bébé, menu enfant, autre précision" />
+            </label>
+          </div>
+
+          <label>
+            Informations complémentaires
+            <textarea name="notes" placeholder="Allergies, régime alimentaire, besoin de transport, précision sur la composition de votre famille..."></textarea>
+          </label>
+
+          <label>
+            Message aux mariés
+            <textarea name="messageToCouple" placeholder="Quelques mots doux, vos félicitations, ou toute attention particulière..."></textarea>
+          </label>
+
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+
+          <button class="btn btn-primary" id="submitBtn" type="submit">Envoyer ma réponse</button>
+          <div class="status" id="statusMsg"></div>
+          <div class="note">
+            Votre réponse sera envoyée directement à notre tableau de suivi RSVP.
+          </div>
+        </form>
+      </section>
+
+      <section class="info">
+        <h2>À savoir</h2>
+        <p>Les informations essentielles.</p>
+
+        <div class="timeline">
+          <div class="step">
+            <strong>1. Réservez la date</strong>
+            Notez dès maintenant le <strong>29 août 2026</strong> dans votre agenda.
+          </div>
+          <div class="step">
+            <strong>2. Confirmez votre présence</strong>
+            Merci de nous indiquer votre réponse, vos coordonnées et le nombre total de personnes présentes.
+          </div>
+          <div class="step">
+            <strong>3. Précisez votre venue</strong>
+            Ajoutez les accompagnants éventuels ainsi que les informations concernant les enfants.
+          </div>
+          <div class="step">
+            <strong>4. Programme détaillé à venir</strong>
+            Les horaires, le déroulé de la journée et les informations complémentaires seront transmis prochainement.
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <div class="footer">Anadack &amp; Vanessa • 29 août 2026</div>
+  </main>
+
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmj89_hkK1Gd8Qz0H17vBRjXUJ7owwCx3u5OCPijdAYJ72jHFziUSftb9YABFzFisp/exec';
+
+    const form = document.getElementById('rsvpForm');
+    const statusMsg = document.getElementById('statusMsg');
+    const submitBtn = document.getElementById('submitBtn');
+    const hasChildrenSelect = document.getElementById('hasChildren');
+    const childrenFields = document.getElementById('childrenFields');
+    const childrenAgeFields = document.getElementById('childrenAgeFields');
+    const initialLoadTs = Date.now();
+
+    const audio = document.getElementById('weddingAudio');
+    const musicState = document.getElementById('musicState');
+
+    hasChildrenSelect.addEventListener('change', function () {
+      const showChildren = this.value === 'oui';
+      childrenFields.style.display = showChildren ? 'grid' : 'none';
+      childrenAgeFields.style.display = showChildren ? 'grid' : 'none';
+    });
+
+    function setStatus(type, html) {
+      statusMsg.style.display = 'block';
+      statusMsg.innerHTML = html;
+
+      if (type === 'success') {
+        statusMsg.style.background = 'rgba(106,170,112,0.16)';
+        statusMsg.style.border = '1px solid rgba(106,170,112,0.34)';
+        statusMsg.style.color = '#e8ffe8';
+      } else {
+        statusMsg.style.background = 'rgba(170,90,106,0.14)';
+        statusMsg.style.border = '1px solid rgba(213,107,144,0.24)';
+        statusMsg.style.color = '#ffe8f0';
+      }
+    }
+
+    function normalizeText(value) {
+      return (value || '').toString().trim();
+    }
+
+    function collectPayload() {
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      return {
+        firstName: normalizeText(data.firstName),
+        lastName: normalizeText(data.lastName),
+        phone: normalizeText(data.phone),
+        email: normalizeText(data.email).toLowerCase(),
+        attendance: normalizeText(data.attendance),
+        count: normalizeText(data.count),
+        companions: normalizeText(data.companions),
+        hasChildren: normalizeText(data.hasChildren),
+        childrenFirstNames: normalizeText(data.childrenFirstNames),
+        childrenSurnames: normalizeText(data.childrenSurnames),
+        childrenAges: normalizeText(data.childrenAges),
+        childrenNotes: normalizeText(data.childrenNotes),
+        notes: normalizeText(data.notes),
+        messageToCouple: normalizeText(data.messageToCouple),
+        website: normalizeText(data.website),
+        submittedAt: new Date().toISOString(),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+        locale: navigator.language || ''
+      };
+    }
+
+    function validatePayload(payload) {
+      if (!payload.firstName || !payload.lastName) return 'Merci de renseigner votre prénom et votre nom.';
+      if (!payload.phone) return 'Merci de renseigner votre téléphone.';
+      if (!payload.email) return 'Merci de renseigner votre adresse e-mail.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return 'Merci de saisir une adresse e-mail valide.';
+      if (!payload.attendance) return 'Merci d’indiquer votre présence.';
+      if (!payload.count) return 'Merci d’indiquer le nombre total de personnes.';
+      if (payload.hasChildren === 'oui' && !payload.childrenFirstNames && !payload.childrenSurnames && !payload.childrenAges) {
+        return 'Merci de préciser au moins une information concernant les enfants.';
+      }
+      return '';
+    }
+
+    async function sendRSVP(payload) {
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.result !== 'success') {
+        throw new Error(result.message || 'Erreur lors de l’envoi');
+      }
+
+      return result;
+    }
+
+    async function playMusic() {
+      try {
+        audio.volume = 0.65;
+        await audio.play();
+        musicState.textContent = audio.muted ? 'Ambiance musicale en préparation…' : 'Ambiance musicale en lecture ✨';
+      } catch (error) {
+        musicState.textContent = 'Lecture automatique limitée par le navigateur.';
+      }
+    }
+
+    async function unmuteMusic() {
+      try {
+        audio.muted = false;
+        audio.volume = 0.65;
+        await audio.play();
+        musicState.textContent = 'Ambiance musicale en lecture ✨';
+      } catch (error) {
+        musicState.textContent = 'Lecture automatique limitée par le navigateur.';
+      }
+    }
+
+    window.addEventListener('load', () => {
+      playMusic();
+      setTimeout(unmuteMusic, 900);
+      setTimeout(unmuteMusic, 1800);
+      setTimeout(unmuteMusic, 3200);
+    });
+
+    ['scroll', 'mousemove', 'touchstart'].forEach(eventName => {
+      document.addEventListener(eventName, function triggerAudio() {
+        unmuteMusic();
+        document.removeEventListener(eventName, triggerAudio);
+      }, { once: true, passive: true });
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (!APPS_SCRIPT_URL) {
+        setStatus('error', 'Configuration incomplète : ajoutez l’URL de votre Web App Google Apps Script.');
+        return;
+      }
+
+      const payload = collectPayload();
+
+      if (payload.website) {
+        setStatus('success', 'Merci. Votre réponse a bien été envoyée.');
+        form.reset();
+        childrenFields.style.display = 'none';
+        childrenAgeFields.style.display = 'none';
+        return;
+      }
+
+      if (Date.now() - initialLoadTs < 2500) {
+        setStatus('error', 'Envoi trop rapide. Merci de vérifier le formulaire puis de réessayer.');
+        return;
+      }
+
+      const validationError = validatePayload(payload);
+      if (validationError) {
+        setStatus('error', validationError);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
+      statusMsg.style.display = 'none';
+
+      try {
+        await sendRSVP(payload);
+
+        const guestName = [payload.firstName, payload.lastName].filter(Boolean).join(' ').trim();
+
+        setStatus(
+          'success',
+          `Merci <strong>${guestName || 'beaucoup'}</strong>. Votre confirmation a bien été envoyée.`
+        );
+
+        form.reset();
+        childrenFields.style.display = 'none';
+        childrenAgeFields.style.display = 'none';
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        console.error(error);
+        setStatus('error', 'Impossible d’envoyer votre réponse pour le moment. Merci de réessayer dans quelques instants.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Envoyer ma réponse';
+      }
+    });
+  </script>
+</body>
+</html>
