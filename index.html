@@ -1105,40 +1105,48 @@ async function sendRSVP(payload) {
   return result;
 }
 
-    async function playMusic() {
-      try {
-        audio.volume = 0.65;
-        await audio.play();
-        musicState.textContent = audio.muted ? 'Ambiance musicale en préparation…' : 'Ambiance musicale en lecture ✨';
-      } catch (error) {
-        musicState.textContent = 'Lecture automatique limitée par le navigateur.';
+    <script>
+  const audio = document.getElementById('weddingAudio');
+  const musicState = document.getElementById('musicState');
+
+  let musicStarted = false;
+
+  async function startMusicOnce() {
+    if (musicStarted) return;
+    musicStarted = true;
+
+    try {
+      audio.muted = false;
+      audio.volume = 0.65;
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        await playPromise;
       }
+
+      musicState.textContent = 'Ambiance musicale en lecture ✨';
+    } catch (error) {
+      musicStarted = false;
+      console.error('Lecture audio impossible :', error);
+      musicState.textContent = 'La musique n’a pas pu démarrer automatiquement.';
     }
+  }
 
-    async function unmuteMusic() {
-      try {
-        audio.muted = false;
-        audio.volume = 0.65;
-        await audio.play();
-        musicState.textContent = 'Ambiance musicale en lecture ✨';
-      } catch (error) {
-        musicState.textContent = 'Lecture automatique limitée par le navigateur.';
-      }
-    }
-
-    window.addEventListener('load', () => {
-      playMusic();
-      setTimeout(unmuteMusic, 900);
-      setTimeout(unmuteMusic, 1800);
-      setTimeout(unmuteMusic, 3200);
+  ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((eventName) => {
+    window.addEventListener(eventName, startMusicOnce, {
+      once: true,
+      passive: true
     });
+  });
 
-    ['scroll', 'mousemove', 'touchstart'].forEach(eventName => {
-      document.addEventListener(eventName, function triggerAudio() {
-        unmuteMusic();
-        document.removeEventListener(eventName, triggerAudio);
-      }, { once: true, passive: true });
-    });
+  audio.addEventListener('playing', () => {
+    musicState.textContent = 'Ambiance musicale en lecture ✨';
+  });
+
+  audio.addEventListener('error', () => {
+    musicState.textContent = 'Fichier audio introuvable ou illisible.';
+  });
+</script>
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
